@@ -24,7 +24,7 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm i
 
       # Se você já versiona config/hmg.env no repo, pode remover este step.
       - name: Create config/hmg.env (dotenv)
