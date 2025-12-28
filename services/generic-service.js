@@ -1,5 +1,8 @@
 import supertest from 'supertest';
 import { loadEnv } from './env.js';
+import { limiter } from '../helpers/utils.js';
+import { schedule } from '../helpers/utils.js';
+
 
 loadEnv();
 
@@ -11,40 +14,47 @@ export default class GenericService {
         this.client = supertest(baseUrl);
     }
 
+    /**
+     * Chamada de scheduler para limitar requests
+     * */
+    async schedule(reqBuilderFn) {
+        return schedule(() => reqBuilderFn());
+    }
+
     create(payload, token) {
-        const client = this.client
+        return this.schedule(() => this.client
             .post(this.resource)
             .set('Authorization', token)
-            .send(payload);
-        return client;
+            .send(payload)
+        );
     }
 
     getAll(token) {
-        const client = this.client
+        return this.schedule(() => this.client
             .get(this.resource)
-            .set('Authorization', token);
-        return client;
+            .set('Authorization', token)
+        );
     }
 
     getById(id, token) {
-        const client = this.client
+        return this.schedule(() => this.client
             .get(`${this.resource}/${id}`)
-            .set('Authorization', token);
-        return client;
+            .set('Authorization', token)
+        );
     }
 
     update(id, payload, token) {
-        const client = this.client
+        return this.schedule(() => this.client
             .put(`${this.resource}/${id}`)
             .set('Authorization', token)
-            .send(payload);
-        return client;
+            .send(payload)
+        );
     }
 
     delete(id, token) {
-        const client = this.client
+        return this.schedule(() => this.client
             .delete(`${this.resource}/${id}`)
-            .set('Authorization', token);
-        return client;
+            .set('Authorization', token)
+        );
     }
 }
