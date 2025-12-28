@@ -28,7 +28,6 @@ jobs:
 
       # Se você já versiona config/hmg.env no repo, pode remover este step.
       - name: Create config/hmg.env (dotenv)
-        run: |
         run: NODE_ENV=hmg npx jest --ci
 
 
