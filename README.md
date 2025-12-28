@@ -1,3 +1,5 @@
+![CI](https://github.com/andersonp54/carrefour-api-automation/actions/workflows/ci.yml/badge.svg)
+
 # 🧪 Testes de API – Carrefour | Automação de Contrato e Integração
 
 ![Javascript](https://img.shields.io/static/v1?label=language&message=javascript&color=orange&style=for-the-badge&logo=javascript)
@@ -109,7 +111,19 @@ Executar um arquivo específico:
 NODE_ENV=hmg npx jest tests/users/contract.test.js
 ```
 
+### 📊 Relatórios
+
+Após a execução no CI, os seguintes artefatos ficam disponíveis:
+
+- `reports/junit.xml` – integração com CI
+- `reports/report.html` – relatório visual
+
+Acesse em:
+GitHub → Actions → Workflow run → Upload Reports
+
+
 ---
+
 
 ## 🗂️ Estrutura do projeto
 ```
