@@ -119,11 +119,9 @@ Após a execução no CI, os seguintes artefatos ficam disponíveis:
 - `reports/report.html` – relatório visual
 
 Acesse em:
-GitHub → Actions → Workflow run → Upload Reports
-
+GitHub → Actions → Workflow run → Artifacts
 
 ---
-
 
 ## 🗂️ Estrutura do projeto
 ```
