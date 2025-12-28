@@ -1,0 +1,47 @@
+name: CI - API Tests (Jest)
+
+on:
+  push:
+    branches: ["main", "master", "develop"]
+  pull_request:
+    branches: ["main", "master", "develop"]
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: hmg
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Se você já versiona config/hmg.env no repo, pode remover este step.
+      - name: Create config/hmg.env (dotenv)
+        run: |
+        run: NODE_ENV=hmg npx jest --ci
+
+
+      - name: Prepare reports folder
+        run: mkdir -p reports
+
+      - name: Run tests
+        run: npx jest --ci
+
+      - name: Upload reports artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: reports/**
+          if-no-files-found: warn
