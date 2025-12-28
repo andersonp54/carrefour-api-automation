@@ -25,12 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: npm i
-
-      # Se você já versiona config/hmg.env no repo, pode remover este step.
-      - name: Create config/hmg.env (dotenv)
-        run: NODE_ENV=hmg npx jest --ci
-
-
+        
       - name: Prepare reports folder
         run: mkdir -p reports
 
