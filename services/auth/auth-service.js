@@ -1,4 +1,5 @@
 import GenericService from '../generic-service.js';
+import userService from '../../services/user/user-service.js';
 
 class AuthService extends GenericService {
   constructor() {
@@ -11,8 +12,22 @@ class AuthService extends GenericService {
   }
 
   async getToken(email, password) {
-    const response = await this.login(email, password);
+    let response = await this.login(email, password);
     this.token = response.body.authorization;
+
+    if (!this.token) {
+      body = {
+        nome: `Fulano Automation`,
+        email: email,
+        password: password,
+        administrador: 'true'
+      };
+
+      await userService.create(body, '');
+
+      response = await this.login(email, password);
+      this.token = response.body.authorization;
+    }
 
     return this.token;
   }
